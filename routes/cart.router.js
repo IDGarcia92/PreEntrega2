@@ -13,7 +13,7 @@ import ProductManager from '../managers/ProductManager.js';
 
 const router = express.Router();
 const productManager = new ProductManager('../data/products.json');
-const jsonFilePath = '../products.json';
+const jsonFilePath = './products.json';
 const cartManager = new CartManager(jsonFilePath);
 await cartManager.init();
 // Definir las rutas para el manejo de carritos

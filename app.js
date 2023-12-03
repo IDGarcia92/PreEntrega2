@@ -9,6 +9,8 @@ import { Server } from 'socket.io';
 import viewRouter from "./routes/views.router.js"; 
 import handlebars from 'express-handlebars';
 import * as path from 'path';
+import ProductManager from './managers/ProductManager.js';
+
 
 const app = express();
 const PORT = 8080;
@@ -48,10 +50,25 @@ io.on('connection', (socket) => {
     console.log('Cliente conectado al WebSocket');
 });
 
-export { io, Myserver};
 /*
-// cambiaremos socketServer por io
-socketServer.of('/realTimeProducts').on('connection', (socket) => {
-    console.log('Cliente conectado al WebSocket en /realTimeProducts');
+socket.on("form_send", async(data) => {
+    console.log(data);
+    try {
+        const productList = new ProductList (
+            data.title,
+            data.description,
+            data.code,
+            data.price,
+            data.stock,
+            data.category,
+            data.body
+        );
+        await ProductManager.saveData(form);
+        socket.emit("forms", ProductManager.getProduc)
+    } catch (error) {
+        console.log(error);
+    }
 });
 */
+
+export { io, Myserver};

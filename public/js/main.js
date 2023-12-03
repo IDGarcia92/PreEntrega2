@@ -6,10 +6,36 @@ console.log('mensaje del lado del cliente');
 
 const socket = io();
 
-const productsList = document.querySelector('#output');
+const form = document.querySelector("form");
 
-productsList.addEventListener('open', () => {
-    console.log('Conexión WebSocket establecida');
-    const productsRealTimeList = new productsRealTimeList(productsList);
-    console.log(productsRealTimeList);
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const productList = {
+        title: formData.get("title"),
+        description: formData.get("description"),
+        code: formData.get("description"),
+        price: formData.get("price"),
+        stock: formData.get("stock"),
+        category: formData.get("category"),
+        body: formData.get("body")
+        };
+
+    socket.emit("form_send", form);
+    form.reset();
+});
+
+socket.on("forms", (data) => {
+    const forms = document.querySelector(#forms); // ????
+
+    forms.innerHTML = data.map((form) => {
+        return `
+        <p>
+        Title: ${form.title} -
+        Body: ${form.body} -
+        <button id="button-${form.id}> Eliminar </button>
+        </p>
+        `;
+    }).join(" ");
 });

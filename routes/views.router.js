@@ -13,11 +13,11 @@ import ProductManager from "../managers/ProductManager.js";
 
 const router = Router();
 
-const jsonFilePath = '../products.json'; 
+const jsonFilePath = './products.json'; 
 const productManager = new ProductManager(jsonFilePath);
 await productManager.init();
 
-const products = await productManager.getProducts(jsonFilePath);
+const products = await productManager.getProducts();
 
 /*
 // los productos los coloque aca porque no pude conectarme con el archivo json
