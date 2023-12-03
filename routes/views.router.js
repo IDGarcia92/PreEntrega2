@@ -9,9 +9,17 @@ updateProduct, etc.
 */
 
 import { Router } from "express";
+import ProductManager from "../managers/ProductManager.js";
 
 const router = Router();
 
+const jsonFilePath = '../products.json'; 
+const productManager = new ProductManager(jsonFilePath);
+await productManager.init();
+
+const products = await productManager.getProducts(jsonFilePath);
+
+/*
 // los productos los coloque aca porque no pude conectarme con el archivo json
 const products = [
     {
@@ -136,9 +144,8 @@ const products = [
         "id": 10
     }
 ];
+*/
 
-// EN ESTE EJEMPLO EL PROFE USA DENTRO DEL RENDER 'home.hbs'
-// EN MI CODIGO SOLO ESTABA 'home'
 //ruta principal donde mostraremos la lista de productos
 router.get('/', (req, res) => {
     res.render('home.hbs', {
@@ -147,6 +154,7 @@ router.get('/', (req, res) => {
         products: products
     });
 });
+
 
 // Ruta para "/realTimeProducts" (productos en tiempo real)
 router.get('/realTimeProducts', (req, res) => {

@@ -1,5 +1,5 @@
-// Supongamos que usas una herramienta como Fetch para cargar el archivo JSON
-fetch('./data/productos.json')
+
+fetch('/products.json')
     .then(response => response.json())
     .then(data => {
     const source = document.getElementById('template').innerHTML;

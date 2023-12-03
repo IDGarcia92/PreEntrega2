@@ -4,20 +4,19 @@ y configuraciones del servidor => OK
 */
 
 import express from 'express';
-import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
 import viewRouter from "./routes/views.router.js"; 
+import handlebars from 'express-handlebars';
 import * as path from 'path';
 
 const app = express();
-const PORT = 5000;
+const PORT = 8080;
 const Myserver = app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
 
 // instancia de socket
-// cambiaremos socketServer por io
 const io = new Server(Myserver);
 
 // Middlewares
@@ -33,8 +32,7 @@ app.engine("hbs", handlebars.engine({
 
 // seteamos el motos de vistas
 app.set("view engine", "hbs");
-//app.set("views", `${__dirname}/views`);
-app.set("views", path.resolve(__dirname + '/views'));
+app.set("views", `${__dirname}/views`);
 
 // public 
 app.use(express.static(`${__dirname}/public`));
@@ -45,12 +43,12 @@ app.use('/', viewRouter);
 // ruta a productos en tiempo real
 app.use('/realTimeProducts', viewRouter);
 
-// cambiaremos socketServer por io
 // realizamos la conexion cliente - websocket
 io.on('connection', (socket) => {
     console.log('Cliente conectado al WebSocket');
 });
 
+export { io, Myserver};
 /*
 // cambiaremos socketServer por io
 socketServer.of('/realTimeProducts').on('connection', (socket) => {
