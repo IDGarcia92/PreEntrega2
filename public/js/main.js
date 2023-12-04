@@ -1,10 +1,11 @@
 // se hara cargo de lo que ocurra en main.hbs
 // es el JS para el lado del CLIENTE 
-console.log('mensaje del lado del cliente');
 
 //const socket = new WebSocket('ws://localhost:5000/realTimeProducts');
 
 const socket = io();
+
+console.log('mensaje del lado del cliente');
 
 const form = document.querySelector("form");
 
@@ -16,8 +17,8 @@ form.addEventListener("submit", (e) => {
         title: formData.get("title"),
         description: formData.get("description"),
         code: formData.get("code"),
-        price: formData.get("price"),
-        stock: formData.get("stock"),
+        price: formData.get(Number("price")),
+        stock: formData.get(Number("stock")),
         category: formData.get("category"),
         body: formData.get("body")
         };
@@ -44,3 +45,4 @@ socket.on("forms", (data) => {
     })
     
 });
+

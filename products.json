@@ -128,5 +128,14 @@
     "code": "dfhfgh",
     "stock": "4242",
     "category": "fghfgj"
+  },
+  {
+    "id": 12,
+    "title": "",
+    "description": "",
+    "price": null,
+    "code": "",
+    "stock": null,
+    "category": ""
   }
 ]

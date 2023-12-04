@@ -1,4 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(75, 72, 104);
+}
+
 div{
-    background-color: black;
-    color: white;
+    padding: 10px;
+    font-weight: 600;
 }

@@ -1,4 +1,3 @@
-// CartManager.js
 import fs from 'fs';
 
 class CartManager {
