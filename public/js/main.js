@@ -6,7 +6,7 @@ console.log('mensaje del lado del cliente');
 
 const socket = io();
 
-const form = document.querySelector("form");
+const form = document.querySelector("forms");
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -26,16 +26,21 @@ form.addEventListener("submit", (e) => {
     form.reset();
 });
 
-socket.on("forms", (data) => {
-    const forms = document.querySelector(#forms); // ????
+const forms = document.querySelector('#forms'); // ????
 
-    forms.innerHTML = data.map((form) => {
-        return `
-        <p>
-        Title: ${form.title} -
-        Body: ${form.body} -
-        <button id="button-${form.id}> Eliminar </button>
+socket.on("forms", (data) => {
+    console.log(data);
+    
+    data.forEach((product) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+        <p> 
+        Title: ${product.title} -
+        Body: ${product.body} -
+        <button id= "button-${form.id}> Eliminar </button>
         </p>
         `;
-    }).join(" ");
+        forms.appendChild(li);
+    })
+    
 });

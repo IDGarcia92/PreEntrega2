@@ -11,7 +11,6 @@ import handlebars from 'express-handlebars';
 import * as path from 'path';
 import ProductManager from './managers/ProductManager.js';
 
-
 const app = express();
 const PORT = 8080;
 const Myserver = app.listen(PORT, () => {
@@ -45,30 +44,38 @@ app.use('/', viewRouter);
 // ruta a productos en tiempo real
 app.use('/realTimeProducts', viewRouter);
 
+const productManager = new ProductManager('./products.json');
+productManager.init();
+
 // realizamos la conexion cliente - websocket
-io.on('connection', (socket) => {
+io.on('connection', async(socket) => {
     console.log('Cliente conectado al WebSocket');
+
+    const products = await productManager.getProducts();
+
+    socket.emit('forms', products); // envia los productos al cliente en cuanto se conecta
+    socket.on("form_send", async(data) => {
+        console.log(data);
+        // recibe la info del cliente
+        try {
+            const productList =  {
+                title: data.title,
+                description: data.description,
+                code: data.code,
+                price: data.price,
+                stock: data.stock,
+                category: data.category,
+                body: data.body
+                };
+
+                await ProductManager.addProduct(productList);
+                socket.emit("forms", [productList]); //renvia el prod al cliente
+
+        } catch (error) {
+            console.log(error);
+        }
+    });
 });
 
-/*
-socket.on("form_send", async(data) => {
-    console.log(data);
-    try {
-        const productList = new ProductList (
-            data.title,
-            data.description,
-            data.code,
-            data.price,
-            data.stock,
-            data.category,
-            data.body
-        );
-        await ProductManager.saveData(form);
-        socket.emit("forms", ProductManager.getProduc)
-    } catch (error) {
-        console.log(error);
-    }
-});
-*/
 
 export { io, Myserver};

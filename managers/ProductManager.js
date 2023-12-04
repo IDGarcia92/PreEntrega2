@@ -27,7 +27,7 @@ class ProductManager {
     async saveData() {
         await fsPromises.writeFile(this.jsonFilePath, JSON.stringify(this.products, null, 2), 'utf-8');
     };
-    async addProduct(title, description, price, thumbnail, code, stock, category, status) {
+    async addProduct({title, description, price, thumbnail, code, stock, category, status}) {
         const newProduct = {
             id: ++this.lastId, // Incrementar el último ID y asignarlo al nuevo producto
             title,
