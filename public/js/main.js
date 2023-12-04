@@ -6,7 +6,7 @@ console.log('mensaje del lado del cliente');
 
 const socket = io();
 
-const form = document.querySelector("forms");
+const form = document.querySelector("form");
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -15,14 +15,14 @@ form.addEventListener("submit", (e) => {
     const productList = {
         title: formData.get("title"),
         description: formData.get("description"),
-        code: formData.get("description"),
+        code: formData.get("code"),
         price: formData.get("price"),
         stock: formData.get("stock"),
         category: formData.get("category"),
         body: formData.get("body")
         };
 
-    socket.emit("form_send", form);
+    socket.emit("form_send", productList);
     form.reset();
 });
 

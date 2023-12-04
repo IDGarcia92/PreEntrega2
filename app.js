@@ -68,7 +68,7 @@ io.on('connection', async(socket) => {
                 body: data.body
                 };
 
-                await ProductManager.addProduct(productList);
+                await productManager.addProduct(productList);
                 socket.emit("forms", [productList]); //renvia el prod al cliente
 
         } catch (error) {
